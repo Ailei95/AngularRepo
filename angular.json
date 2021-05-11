@@ -252,8 +252,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
+            "extraWebpackConfig": "webpack.config.js",
             "outputPath": "dist/d3-exercise",
             "index": "projects/d3-exercise/src/index.html",
             "main": "projects/d3-exercise/src/main.ts",
@@ -300,8 +301,9 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "ngx-build-plus:dev-server",
           "options": {
+            "extraWebpackConfig": "webpack.config.js",
             "browserTarget": "d3-exercise:build"
           },
           "configurations": {
@@ -317,8 +319,9 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "ngx-build-plus:karma",
           "options": {
+            "extraWebpackConfig": "webpack.config.js",
             "main": "projects/d3-exercise/src/test.ts",
             "polyfills": "projects/d3-exercise/src/polyfills.ts",
             "tsConfig": "projects/d3-exercise/tsconfig.spec.json",
