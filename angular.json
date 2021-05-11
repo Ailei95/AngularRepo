@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -114,6 +115,246 @@
           "configurations": {
             "production": {
               "devServerTarget": "AngularRepo:serve:production"
+            }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
+        }
+      }
+    },
+    "ex-firebase": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ex-firebase",
+      "sourceRoot": "projects/ex-firebase/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "projects/ex-firebase/dist/ex-firebase",
+            "index": "projects/ex-firebase/src/index.html",
+            "main": "projects/ex-firebase/src/main.ts",
+            "polyfills": "projects/ex-firebase/src/polyfills.ts",
+            "tsConfig": "projects/ex-firebase/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/ex-firebase/src/favicon.ico",
+              "projects/ex-firebase/src/assets"
+            ],
+            "styles": [
+              "projects/ex-firebase/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/ex-firebase/src/environments/environment.ts",
+                  "with": "projects/ex-firebase/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ex-firebase:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ex-firebase:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ex-firebase:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ex-firebase/src/test.ts",
+            "polyfills": "projects/ex-firebase/src/polyfills.ts",
+            "tsConfig": "projects/ex-firebase/tsconfig.spec.json",
+            "karmaConfig": "projects/ex-firebase/karma.conf.js",
+            "assets": [
+              "projects/ex-firebase/src/favicon.ico",
+              "projects/ex-firebase/src/assets"
+            ],
+            "styles": [
+              "projects/ex-firebase/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ex-firebase/tsconfig.app.json",
+              "projects/ex-firebase/tsconfig.spec.json",
+              "projects/ex-firebase/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/ex-firebase/e2e/protractor.conf.js",
+            "devServerTarget": "ex-firebase:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ex-firebase:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "d3-exercise": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/d3-exercise",
+      "sourceRoot": "projects/d3-exercise/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/d3-exercise",
+            "index": "projects/d3-exercise/src/index.html",
+            "main": "projects/d3-exercise/src/main.ts",
+            "polyfills": "projects/d3-exercise/src/polyfills.ts",
+            "tsConfig": "projects/d3-exercise/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/d3-exercise/src/favicon.ico",
+              "projects/d3-exercise/src/assets"
+            ],
+            "styles": [
+              "projects/d3-exercise/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/d3-exercise/src/environments/environment.ts",
+                  "with": "projects/d3-exercise/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "d3-exercise:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "d3-exercise:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "d3-exercise:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/d3-exercise/src/test.ts",
+            "polyfills": "projects/d3-exercise/src/polyfills.ts",
+            "tsConfig": "projects/d3-exercise/tsconfig.spec.json",
+            "karmaConfig": "projects/d3-exercise/karma.conf.js",
+            "assets": [
+              "projects/d3-exercise/src/favicon.ico",
+              "projects/d3-exercise/src/assets"
+            ],
+            "styles": [
+              "projects/d3-exercise/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/d3-exercise/tsconfig.app.json",
+              "projects/d3-exercise/tsconfig.spec.json",
+              "projects/d3-exercise/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/d3-exercise/e2e/protractor.conf.js",
+            "devServerTarget": "d3-exercise:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "d3-exercise:serve:production"
             }
           }
         }

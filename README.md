@@ -2,15 +2,25 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.8.
 
+## Add new project
+
+Run `ng generate application %PROJECT_NAME` to generate a new application.
+
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `ng serve --project=%PROJECT_NAME` for run a specific project in a dev server.
 
 ## Code scaffolding
+
+Run `ng g c component-name --project=%PROJECT_NAME` to generate a new component in a specific project.
+
+Run `ng g m module-name --route route-name --module app.module --project=%PROJECT_NAME` to generate a new module with routing linked in a module in a specific project.
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
+
+Run `ng build --project=%PROJECT_NAME` to build a specific project.
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 

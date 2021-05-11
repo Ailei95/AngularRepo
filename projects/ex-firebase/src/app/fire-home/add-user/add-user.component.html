@@ -1,0 +1,11 @@
+<div [formGroup]="form">
+  <input type="text" placeholder="name" formControlName="name">
+  <input type="text" placeholder="surname" formControlName="surname">
+  <input type="date" placeholder="birthday" formControlName="birthday">
+  <label>Male: </label>
+  <input type="radio" placeholder="M" value="M" formControlName="sex">
+  <label>Female: </label>
+  <input type="radio" placeholder="F" value="F" formControlName="sex">
+  <input type="text" placeholder="phone" formControlName="phone">
+  <input type="button" value="add user" (click)="addUser()">
+</div>

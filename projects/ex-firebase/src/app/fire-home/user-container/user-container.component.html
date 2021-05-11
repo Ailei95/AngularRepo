@@ -1,0 +1,24 @@
+<div class="container fire-user">
+  <div class="row">
+    <div class="col-4">
+
+    </div>
+    <div class="col-8">
+      <div class="fire-label">{{ user.name }}</div>
+      <div class="fire-label">{{ user.surname }}</div>
+      <div class="fire-label">{{ user.phone }}</div>
+      <div class="fire-label">{{ user.sex }}</div>
+      <div class="fire-label">{{ user.birthday | date }}</div>
+    </div>
+  </div>
+  <div class="row fire-actionbar">
+    <ng-content></ng-content>
+  </div>
+  <div class="row fire-cars">
+    <ng-container *ngFor="let car of user.cars; trackBy: trackById">
+      <app-car-container [car]="car">
+        <button (click)="deleteCar(car)">Delete</button>
+      </app-car-container>
+    </ng-container>
+  </div>
+</div>
