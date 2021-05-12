@@ -11,7 +11,7 @@ export class BarchartComponent implements OnInit, AfterViewInit {
 
   svg: D3.Selection<D3.BaseType, unknown, HTMLElement, any>;
 
-  margin = { top: 60, right: 60, bottom: 60, left: 200 };
+  margin = { top: 60, right: 60, bottom: 60, left: 120 };
 
   constructor() { }
 

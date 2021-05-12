@@ -21,9 +21,7 @@ export class InterceptorService implements HttpInterceptor {
     return next.handle(req).pipe(
       tap((res) => {
         if (res instanceof HttpResponse) {
-          if (res.body && res.body.success) {
-            this.loadingService.decrement();
-          }
+          this.loadingService.decrement();
         }
       }),
       catchError((error: HttpErrorResponse) => {

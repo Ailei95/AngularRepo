@@ -2,7 +2,7 @@ import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/c
 import {Router} from '@angular/router';
 import {select, Store} from '@ngrx/store';
 import {UserState} from '../../core/store/user/user.reducer';
-import {logout} from '../../core/store/user/user.actions';
+import {getUserDetails, logout} from '../../core/store/user/user.actions';
 import {Observable} from 'rxjs';
 import {User} from '../../model/user.model';
 import {getUser} from '../../core/store/user/user.selectors';
@@ -35,6 +35,7 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   @HostListener('document:click', ['$event']) onClick($event: MouseEvent): void {

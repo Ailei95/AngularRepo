@@ -12,8 +12,10 @@ export const initialState: UserState = {
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.loginSuccess, (state, action) => ({ user: action.payload })),
+  on(UserActions.loginSuccess, (state) => state),
   on(UserActions.loginFailed, (state) => state),
-  on(UserActions.logoutSuccess, () => ({ user: null })),
+  on(UserActions.logoutSuccess, (state) => state),
   on(UserActions.logoutFailed, (state) => state),
+  on(UserActions.getUserDetailsSuccess, (state, action) => ({ user: action.payload })),
+  on(UserActions.getUserDetailsFailed, (state) => state)
 );

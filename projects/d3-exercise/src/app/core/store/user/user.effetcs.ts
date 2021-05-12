@@ -1,11 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {login, loginFailed, loginSuccess, logout, logoutSuccess} from './user.actions';
+import {
+  getUserDetails,
+  getUserDetailsFailed,
+  getUserDetailsSuccess,
+  login,
+  loginFailed,
+  loginSuccess,
+  logout,
+  logoutSuccess
+} from './user.actions';
 import {catchError, map, mergeMap, tap} from 'rxjs/operators';
-import {User} from '../../../model/user.model';
 import {of} from 'rxjs';
 import {LoginService} from '../../services/login.service';
 import {Router} from '@angular/router';
+import {UserService} from '../../services/user.service';
+import {Store} from '@ngrx/store';
 
 @Injectable()
 export class UserEffects {
@@ -14,8 +24,11 @@ export class UserEffects {
     ofType(login),
     mergeMap((action) => this.loginService.login(action.payload)
       .pipe(
-        map((user: User) => loginSuccess({payload: user})),
-        tap(() => this.router.navigate(['/'])),
+        tap(() => {
+          this.router.navigate(['/']).then(null);
+          this.store.dispatch(getUserDetails());
+        }),
+        map(() => loginSuccess()),
         catchError(() => of(loginFailed()))
       ))
     )
@@ -25,8 +38,19 @@ export class UserEffects {
     ofType(logout),
     mergeMap(() => this.loginService.logout()
       .pipe(
+        tap(() => this.store.dispatch(getUserDetails())),
         map(() => logoutSuccess()),
         catchError(() => of(loginFailed()))
+      ))
+    )
+  );
+
+  user$ = createEffect(() => this.actions$.pipe(
+    ofType(getUserDetails),
+    mergeMap(() => this.userService.getUser()
+      .pipe(
+        map((res) => getUserDetailsSuccess({ payload: res })),
+        catchError(() => of(getUserDetailsFailed()))
       ))
     )
   );
@@ -34,7 +58,9 @@ export class UserEffects {
   constructor(
     private router: Router,
     private actions$: Actions,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private userService: UserService,
+    private store: Store
   ) {
   }
 }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
+import {NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/router';
+import {filter} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,20 @@ export class LoadingService {
 
   private readonly loading$: BehaviorSubject<boolean>;
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
+
+    router.events.pipe(
+      filter((event) => event instanceof RouterEvent)
+    ).subscribe((event: RouterEvent) => {
+      if (event instanceof NavigationStart) {
+        this.increment();
+      } else if (event instanceof NavigationEnd) {
+        this.decrement();
+      }
+    });
+
     this.queue = 0;
     this.loading$ = new BehaviorSubject(false);
   }
@@ -18,8 +33,6 @@ export class LoadingService {
   increment(): void {
     this.queue++;
     this.loading$.next(true);
-
-    console.log(this.queue);
   }
 
   decrement(): void {
@@ -28,7 +41,7 @@ export class LoadingService {
     }
   }
 
-  getLoading(): Observable<boolean> {
+  getLoading$(): Observable<boolean> {
     return this.loading$;
   }
 }

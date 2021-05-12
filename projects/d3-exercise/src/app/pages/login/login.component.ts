@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {UserState} from '../../core/store/user/user.reducer';
 import {login} from '../../core/store/user/user.actions';
+import {LoadingService} from '../../core/services/loading.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +13,17 @@ import {login} from '../../core/store/user/user.actions';
 })
 export class LoginComponent implements OnInit {
 
+  loading$: Observable<boolean>;
+
   form: FormGroup;
 
   constructor(
+    private loadingService: LoadingService,
     private formBuilder: FormBuilder,
     private router: Router,
     private store: Store<{ user: UserState }>
   ) {
+    this.loading$ = this.loadingService.getLoading$();
 
     this.form = this.formBuilder.group({
       email: [],
@@ -29,7 +35,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async submit(): Promise<void> {
+  submit(): void {
     if (this.form.valid) {
       this.store.dispatch(login({ payload: this.form.value }));
     } else {

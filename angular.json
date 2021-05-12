@@ -255,7 +255,7 @@
           "builder": "ngx-build-plus:browser",
           "options": {
             "extraWebpackConfig": "webpack.config.js",
-            "outputPath": "dist/d3-exercise",
+            "outputPath": "dist/static",
             "index": "projects/d3-exercise/src/index.html",
             "main": "projects/d3-exercise/src/main.ts",
             "polyfills": "projects/d3-exercise/src/polyfills.ts",

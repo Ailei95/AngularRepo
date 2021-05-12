@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home.component';
+import { MainRoutingModule } from './main-routing.module';
+import { MainComponent } from './main.component';
 import {MenuComponent} from '../../features/menu/menu.component';
 
 @NgModule({
   declarations: [
-    HomeComponent,
+    MainComponent,
     MenuComponent
   ],
   imports: [
     CommonModule,
-    HomeRoutingModule
+    MainRoutingModule
   ]
 })
-export class HomeModule { }
+export class MainModule { }

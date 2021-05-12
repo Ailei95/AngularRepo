@@ -1,12 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {MainModule} from './pages/main/main.module';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule)
+    loadChildren: () => MainModule
   },
-  { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) }
+  {
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'access-denied',
+    loadChildren: () => import('./pages/access-denied/access-denied.module').then(m => m.AccessDeniedModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule)
+  }
 ];
 
 @NgModule({
