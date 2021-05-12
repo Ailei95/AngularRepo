@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'barchart',
-        loadChildren: () => import('../barchart/barchart.module').then(m => m.BarchartModule)
+        loadChildren: () => import('./barchart/barchart.module').then(m => m.BarchartModule)
       }
     ]
   }

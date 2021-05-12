@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
-import {LoginService} from '../../core/services/login.service';
+import {Store} from '@ngrx/store';
+import {UserState} from '../../core/store/user/user.reducer';
+import {login} from '../../core/store/user/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +16,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private loginService: LoginService
+    private store: Store<{ user: UserState }>
   ) {
 
     this.form = this.formBuilder.group({
@@ -29,9 +31,7 @@ export class LoginComponent implements OnInit {
 
   async submit(): Promise<void> {
     if (this.form.valid) {
-      this.loginService.login(this.form.value).subscribe(() => {
-        this.router.navigate(['']);
-      });
+      this.store.dispatch(login({ payload: this.form.value }));
     } else {
       if (this.form.get('email').invalid) {
         this.form.setErrors({email: true});
