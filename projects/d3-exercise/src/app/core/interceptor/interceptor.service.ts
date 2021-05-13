@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from '@angular/common/http';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {catchError, tap} from 'rxjs/operators';
+import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {finalize} from 'rxjs/operators';
 import {LoadingService} from '../services/loading.service';
 
 @Injectable({
@@ -15,19 +15,9 @@ export class InterceptorService implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     this.loadingService.increment();
-
     return next.handle(req).pipe(
-      tap((res) => {
-        if (res instanceof HttpResponse) {
-          this.loadingService.decrement();
-        }
-      }),
-      catchError((error: HttpErrorResponse) => {
-        this.loadingService.decrement();
-        return throwError(error);
-      })
+      finalize(() => { this.loadingService.decrement(); })
     );
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/router';
+import {NavigationCancel, NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {filter} from 'rxjs/operators';
 
 @Injectable({
@@ -23,6 +23,8 @@ export class LoadingService {
         this.increment();
       } else if (event instanceof NavigationEnd) {
         this.decrement();
+      }  else if (event instanceof NavigationCancel) {
+        this.decrement();
       }
     });
 
@@ -33,12 +35,14 @@ export class LoadingService {
   increment(): void {
     this.queue++;
     this.loading$.next(true);
+    console.log(this.queue);
   }
 
   decrement(): void {
     if (--this.queue <= 0) {
       this.loading$.next(false);
     }
+    console.log(this.queue);
   }
 
   getLoading$(): Observable<boolean> {

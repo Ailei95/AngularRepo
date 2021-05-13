@@ -3,9 +3,9 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route
 import {Observable, of} from 'rxjs';
 import {select, Store} from '@ngrx/store';
 import {User} from '../../model/user.model';
-import {UserState} from '../store/user/user.reducer';
 import {getUser} from '../store/user/user.selectors';
-import {map} from 'rxjs/operators';
+import {map, switchMap} from 'rxjs/operators';
+import {UserService} from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class PrivateGuard implements CanActivate {
   user$: Observable<User>;
 
   constructor(
-    private store: Store<{ user: UserState }>,
+    private store: Store,
+    private userService: UserService,
     private router: Router
   ) {
     this.user$ = this.store.pipe(select(getUser));
@@ -24,13 +25,18 @@ export class PrivateGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.user$.pipe(map((user) => {
-      if (user?.authorities?.includes('ROLE_ADMIN')) {
-        return true;
-      } else {
-        this.router.navigate(['access-denied']).then(null);
-        return false;
-      }
-    }));
+    return this.user$.pipe(
+      switchMap((user: User) => {
+        return user ? of(user) : this.userService.getUser();
+      }),
+      map((user) => {
+        if (user?.authorities?.includes('ROLE_ADMIN')) {
+          return true;
+        } else {
+          this.router.navigate(['access-denied']).then(null);
+          return false;
+        }
+      })
+    );
   }
 }

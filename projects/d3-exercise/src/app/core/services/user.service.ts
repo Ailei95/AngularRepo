@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../model/user.model';
-import {Store} from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +9,7 @@ import {Store} from '@ngrx/store';
 export class UserService {
 
   constructor(
-    private httpClient: HttpClient,
-    private store: Store
+    private httpClient: HttpClient
   ) {
   }
 

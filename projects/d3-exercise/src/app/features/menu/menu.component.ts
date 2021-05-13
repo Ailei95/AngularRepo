@@ -1,8 +1,7 @@
 import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {select, Store} from '@ngrx/store';
-import {UserState} from '../../core/store/user/user.reducer';
-import {getUserDetails, logout} from '../../core/store/user/user.actions';
+import {logout} from '../../core/store/user/user.actions';
 import {Observable} from 'rxjs';
 import {User} from '../../model/user.model';
 import {getUser} from '../../core/store/user/user.selectors';
@@ -26,7 +25,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private store: Store<{ user: UserState }>
+    private store: Store
   ) {
     this.open = false;
     this.showDropDown = false;

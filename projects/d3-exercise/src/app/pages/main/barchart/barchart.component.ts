@@ -13,6 +13,14 @@ export class BarchartComponent implements OnInit, AfterViewInit {
 
   margin = { top: 60, right: 60, bottom: 60, left: 120 };
 
+  innerWidth: number;
+
+  innerHeight: number;
+
+  xScale: D3.ScaleLinear<number, number>;
+
+  yScale: D3.ScaleBand<string>;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -28,22 +36,22 @@ export class BarchartComponent implements OnInit, AfterViewInit {
   }
 
   private render(data: Data[]): void {
-    const innerWidth = +this.svg.attr('width') - this.margin.left - this.margin.right;
+    this.innerWidth = +this.svg.attr('width') - this.margin.left - this.margin.right;
 
-    const innerHeight = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
+    this.innerHeight = +this.svg.attr('height') - this.margin.top - this.margin.bottom;
 
-    const xScale = D3.scaleLinear()
+    this.xScale = D3.scaleLinear()
       .domain([0, D3.max(data, this.xValue)])
-      .range([0, innerWidth]);
+      .range([0, this.innerWidth]).nice();
 
-    const yScale = D3.scaleBand()
+    this.yScale = D3.scaleBand()
       .domain(data.map(this.yValue))
-      .range([0, innerHeight])
+      .range([0, this.innerHeight])
       .padding(0.1);
 
-    const yAxis = D3.axisLeft(yScale);
+    const yAxis = D3.axisLeft(this.yScale);
 
-    const xAxis = D3.axisBottom(xScale).tickFormat(this.xAxisFormat);
+    const xAxis = D3.axisBottom(this.xScale).tickFormat(this.xAxisFormat);
 
     const graphic = this.svg.append('g')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
@@ -53,22 +61,29 @@ export class BarchartComponent implements OnInit, AfterViewInit {
       .attr('class', 'graphic-title')
       .text('Top 10 most populous countries');
 
-    graphic.selectAll('rect').data(data).enter()
-      .append('rect')
-      .attr('y', d => yScale(this.yValue(d)))
-      .attr('width', d => xScale(this.xValue(d)))
-      .attr('height', yScale.bandwidth());
-
     const yAxisG = graphic.append('g').call(yAxis).selectAll('.domain, .tick line').remove();
 
-    const xAxisG = graphic.append('g').call(xAxis).attr('transform', `translate(0, ${innerHeight})`);
+    const xAxisG = graphic.append('g').call(xAxis).attr('transform', `translate(0, ${this.innerHeight})`);
 
     xAxisG.append('text')
       .attr('class', 'axis-label')
       .attr('fill', 'black')
       .attr('y', 50)
-      .attr('x', innerWidth / 2)
+      .attr('x', this.innerWidth / 2)
       .text('Population');
+
+    this.renderBarchart(graphic, data);
+  }
+
+  private renderBarchart(
+    graphic: D3.Selection<D3.BaseType, unknown, HTMLElement, any>,
+    data: Data[]
+  ): void {
+    graphic.selectAll('rect').data(data).enter()
+      .append('rect')
+      .attr('y', d => this.yScale(this.yValue(d)))
+      .attr('width', d => this.xScale(this.xValue(d)))
+      .attr('height', this.yScale.bandwidth());
   }
 
   private xAxisFormat(n: number): string {

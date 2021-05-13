@@ -14,8 +14,12 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'statistics',
+        path: 'barchart',
         loadChildren: () => import('./barchart/barchart.module').then(m => m.BarchartModule)
+      },
+      {
+        path: 'statistics',
+        loadChildren: () => import('./statistics/statistics.module').then(m => m.StatisticsModule)
       },
       {
         path: 'private',

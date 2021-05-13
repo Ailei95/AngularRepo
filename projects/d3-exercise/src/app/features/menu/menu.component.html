@@ -49,9 +49,14 @@
                [ngClass]="router.url === '/' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
                class="px-3 py-2 rounded-md text-sm font-medium">Dashboard</a>
 
+            <a routerLink="/barchart" [attr.aria-current]="router.url === '/barchart' ? 'page' : null"
+               [ngClass]="router.url === '/barchart' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
+               class="px-3 py-2 rounded-md text-sm font-medium">Barchart</a>
+
             <a routerLink="/statistics" [attr.aria-current]="router.url === '/statistics' ? 'page' : null"
                [ngClass]="router.url === '/statistics' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
-               class="px-3 py-2 rounded-md text-sm font-medium">Statistics</a>
+               class="px-3 py-2 rounded-md text-sm font-medium" *ngIf="(user$ | async)?.authorities?.includes('ROLE_ADMIN')"
+            >Statistics</a>
 
             <a routerLink="/private" [attr.aria-current]="router.url === '/private' ? 'page' : null"
                [ngClass]="router.url === '/private' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
@@ -137,16 +142,20 @@
          [ngClass]="router.url === '/' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
          class="block px-3 py-2 rounded-md text-base font-medium">Dashboard</a>
 
+      <a routerLink="/barchart"
+         [attr.aria-current]="router.url === '/barchart' ? 'page' : null"
+         [ngClass]="router.url === '/barchart' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
+         class="block px-3 py-2 rounded-md text-base font-medium">Barchart</a>
+
       <a routerLink="/statistics"
-         [attr.aria-current]="router.url === '/statistics' ? 'page' : null"
+         [attr.aria-current]="router.url === '/statistics' ? 'page' : null" *ngIf="(user$ | async)?.authorities?.includes('ROLE_ADMIN')"
          [ngClass]="router.url === '/statistics' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
          class="block px-3 py-2 rounded-md text-base font-medium">Statistics</a>
 
       <a routerLink="/private"
-         [attr.aria-current]="router.url === '/private' ? 'page' : null"
+         [attr.aria-current]="router.url === '/private' ? 'page' : null" *ngIf="(user$ | async)?.authorities?.includes('ROLE_ADMIN')"
          [ngClass]="router.url === '/private' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'"
-         class="block px-3 py-2 rounded-md text-base font-medium" *ngIf="(user$ | async)?.authorities?.includes('ROLE_ADMIN')"
-      >Private</a>
+         class="block px-3 py-2 rounded-md text-base font-medium">Private</a>
 
       <div class="block px-3 py-2 text-right space-x-4" *ngIf="!(user$ | async)">
         <a routerLink="/login"
