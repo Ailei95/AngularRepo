@@ -35,14 +35,12 @@ export class LoadingService {
   increment(): void {
     this.queue++;
     this.loading$.next(true);
-    console.log(this.queue);
   }
 
   decrement(): void {
     if (--this.queue <= 0) {
       this.loading$.next(false);
     }
-    console.log(this.queue);
   }
 
   getLoading$(): Observable<boolean> {

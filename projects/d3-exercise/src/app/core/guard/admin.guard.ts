@@ -10,7 +10,7 @@ import {UserService} from '../services/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class PrivateGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
 
   user$: Observable<User>;
 

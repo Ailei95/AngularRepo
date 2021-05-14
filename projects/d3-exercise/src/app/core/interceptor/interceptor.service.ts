@@ -4,9 +4,7 @@ import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
 import {LoadingService} from '../services/loading.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class InterceptorService implements HttpInterceptor {
 
   constructor(

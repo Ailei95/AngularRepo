@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {MainComponent} from './main.component';
-import {PrivateGuard} from '../../core/guard/private.guard';
+import {AdminGuard} from '../../core/guard/admin.guard';
 
 const routes: Routes = [
   {
@@ -19,12 +19,13 @@ const routes: Routes = [
       },
       {
         path: 'statistics',
-        loadChildren: () => import('./statistics/statistics.module').then(m => m.StatisticsModule)
+        loadChildren: () => import('./statistics/statistics.module').then(m => m.StatisticsModule),
+        canActivate: [AdminGuard]
       },
       {
         path: 'private',
         loadChildren: () => import('./private/private.module').then(m => m.PrivateModule),
-        canActivate: [PrivateGuard]
+        canActivate: [AdminGuard]
       }
     ]
   }
