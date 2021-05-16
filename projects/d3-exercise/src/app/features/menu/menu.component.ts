@@ -43,8 +43,7 @@ export class MenuComponent implements OnInit {
       this.showDropDown = false;
     }
 
-    if (this.open && !this.mobile?.nativeElement.contains($event.target)
-      && !this.mobileList?.nativeElement.contains($event.target)) {
+    if (this.open && !this.mobile?.nativeElement.contains($event.target)) {
       this.open = false;
     }
   }

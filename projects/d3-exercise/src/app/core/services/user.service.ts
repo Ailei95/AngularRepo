@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {User} from '../../model/user.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,6 @@ export class UserService {
   }
 
   getUser(): Observable<User> {
-    return this.httpClient.get<User>('/api/user');
+    return this.httpClient.get<User>(environment.apiUrl + '/api/user');
   }
 }

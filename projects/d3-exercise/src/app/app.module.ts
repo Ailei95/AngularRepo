@@ -13,6 +13,12 @@ import {LoadingComponent} from './features/loading/loading.component';
 import {InterceptorService} from './core/interceptor/interceptor.service';
 import {getUserDetails} from './core/store/user/user.actions';
 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LoadingService} from './core/interceptor/loading.service';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,14 +32,25 @@ import {getUserDetails} from './core/store/user/user.actions';
     StoreDevtoolsModule.instrument({
       maxAge: 20
     }),
-    EffectsModule.forRoot([UserEffects])
+    EffectsModule.forRoot([UserEffects]),
+
+    BrowserAnimationsModule,
+    // Material
+    MatSnackBarModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true
-    }
+    },
+    LoadingService
   ],
   exports: [],
   bootstrap: [AppComponent]

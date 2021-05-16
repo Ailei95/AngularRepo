@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {UserState} from '../../core/store/user/user.reducer';
 import {login} from '../../core/store/user/user.actions';
-import {LoadingService} from '../../core/services/loading.service';
+import {LoadingService} from '../../core/interceptor/loading.service';
 import {Observable} from 'rxjs';
 
 @Component({

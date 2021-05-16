@@ -1,6 +1,7 @@
 import {Component, ViewChild, ViewContainerRef} from '@angular/core';
-import {Observable} from 'rxjs';
-import {LoadingService} from './core/services/loading.service';
+import {Observable, of} from 'rxjs';
+import {LoadingService} from './core/interceptor/loading.service';
+import {delay, switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,10 @@ export class AppComponent {
   constructor(
     private loadingService: LoadingService
   ) {
-    this.loading$ = this.loadingService.getLoading$();
+    this.loading$ = this.loadingService.getLoading$().pipe(
+      switchMap((loading) => {
+        return loading ? of(loading).pipe(delay(100)) : of(loading);
+      })
+    );
   }
 }

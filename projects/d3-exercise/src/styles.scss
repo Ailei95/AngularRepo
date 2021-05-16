@@ -1,5 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
 
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+html, body { height: 100%; }
+
+.nb-container {
+  @apply py-4 sm:px-8 sm:py-8 md:px-16;
+}
+
+.nb-input {
+  @apply block focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md;
+}
+
+.nb-button-primary {
+  @apply justify-center py-2 px-4 border border-transparent text-base font-medium rounded-md text-white
+  bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+}
+
+.mat-error-snackbar {
+  color: #c53030 !important;
+  background-color: #fff5f5 !important;
+  border: solid 1px #feb2b2 !important;
+  .mat-simple-snackbar-action {
+    color: #c53030 !important;
+  }
+}

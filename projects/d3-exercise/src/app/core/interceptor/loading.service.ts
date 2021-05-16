@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
-import {NavigationCancel, NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/router';
+import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent} from '@angular/router';
 import {filter} from 'rxjs/operators';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LoadingService {
 
   private queue: number;
@@ -13,7 +12,8 @@ export class LoadingService {
   private readonly loading$: BehaviorSubject<boolean>;
 
   constructor(
-    private router: Router
+    private router: Router,
+    private matSnackBar: MatSnackBar
   ) {
 
     router.events.pipe(
@@ -24,6 +24,10 @@ export class LoadingService {
       } else if (event instanceof NavigationEnd) {
         this.decrement();
       }  else if (event instanceof NavigationCancel) {
+        this.decrement();
+      } else if (event instanceof NavigationError) {
+        this.matSnackBar.open((event as NavigationError).error.name, 'OK',
+          { duration: 5000, panelClass: ['mat-error-snackbar', 'shadow-md'] });
         this.decrement();
       }
     });
