@@ -19,6 +19,16 @@ html, body { height: 100%; }
   !important sm:flex !important sm:flex-row-reverse !important mb-0 !important min-h-0 !important;
 }
 
+.nb-toggle-checkbox:checked {
+  @apply right-0 border-green-400;
+  right: 0;
+  border-color: #68D391;
+}
+.nb-toggle-checkbox:checked + .nb-toggle-label {
+  @apply bg-green-400;
+  background-color: #68D391;
+}
+
 .nb-input {
   @apply block focus:ring-indigo-500 focus:border-indigo-500 text-base border-gray-300 rounded-md;
 }

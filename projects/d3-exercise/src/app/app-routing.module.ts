@@ -19,6 +19,8 @@ const routes: Routes = [
     path: 'access-denied',
     loadChildren: () => import('./pages/access-denied/access-denied.module').then(m => m.AccessDeniedModule)
   },
+  { path: 'settings', loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsModule) },
+  { path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
   {
     path: '**',
     loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule)

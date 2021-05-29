@@ -21,3 +21,11 @@ export const getUserDetailsSuccess = createAction('[User] Get user details succe
   props<{ payload: User }>());
 
 export const getUserDetailsFailed = createAction('[User] Get user details failed');
+
+export const setAdmin = createAction('[User] Set admin', props<{ payload: boolean }>());
+
+export const setAdminSuccess = createAction('[User] Set admin success',
+  props<{ payload: User }>());
+
+export const setAdminFailed = createAction('[User] Set admin failed');
+

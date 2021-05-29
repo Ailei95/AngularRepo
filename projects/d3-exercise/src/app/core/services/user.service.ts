@@ -17,4 +17,8 @@ export class UserService {
   getUser(): Observable<User> {
     return this.httpClient.get<User>(environment.apiUrl + '/api/user');
   }
+
+  setAdmin(admin: boolean): Observable<User> {
+    return this.httpClient.post<User>(environment.apiUrl + '/api/user?admin=' + admin, null);
+  }
 }

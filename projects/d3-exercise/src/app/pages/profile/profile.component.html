@@ -1,0 +1,12 @@
+<div class="flex h-screen justify-center items-center">
+  <ng-container *ngIf="user$ | async as user">
+    <pre>{{ user | json }}</pre>
+  </ng-container>
+</div>
+<div class="flex justify-center">
+  <div class="-mt-32">
+    <a routerLink="/">
+      Back to home
+    </a>
+  </div>
+</div>

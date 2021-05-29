@@ -17,5 +17,7 @@ export const userReducer = createReducer(
   on(UserActions.logoutSuccess, (state) => state),
   on(UserActions.logoutFailed, (state) => state),
   on(UserActions.getUserDetailsSuccess, (state, action) => ({ user: action.payload })),
-  on(UserActions.getUserDetailsFailed, (state) => state)
+  on(UserActions.getUserDetailsFailed, (state) => state),
+  on(UserActions.setAdminSuccess, (state, action) => ({ user: action.payload })),
+  on(UserActions.setAdminFailed, (state) => state)
 );

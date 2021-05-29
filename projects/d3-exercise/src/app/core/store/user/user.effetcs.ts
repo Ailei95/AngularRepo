@@ -8,7 +8,7 @@ import {
   loginFailed,
   loginSuccess,
   logout,
-  logoutSuccess
+  logoutSuccess, setAdmin, setAdminFailed, setAdminSuccess
 } from './user.actions';
 import {catchError, map, mergeMap, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -51,6 +51,16 @@ export class UserEffects {
       .pipe(
         map((res) => getUserDetailsSuccess({ payload: res })),
         catchError(() => of(getUserDetailsFailed()))
+      ))
+    )
+  );
+
+  updated$ = createEffect(() => this.actions$.pipe(
+    ofType(setAdmin),
+    mergeMap((action) => this.userService.setAdmin(action.payload)
+      .pipe(
+        map((res) => setAdminSuccess({ payload: res })),
+        catchError(() => of(setAdminFailed()))
       ))
     )
   );
