@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, finalize} from 'rxjs/operators';
+import {catchError, finalize, timeout} from 'rxjs/operators';
 import {LoadingService} from './loading.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -17,8 +17,9 @@ export class InterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.loadingService.increment();
     return next.handle(req).pipe(
+      timeout(20000),
       catchError((error: HttpErrorResponse) => {
-        this.matSnackBar.open(error.status + ' ' + error.statusText, 'OK',
+        this.matSnackBar.open(error.status + ' ' + error.error?.message, 'OK',
           { duration: 5000, panelClass: ['mat-error-snackbar', 'shadow-md'] });
         return throwError(error);
       }),

@@ -12,6 +12,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule)
   },
   {
+    path: 'registration',
+    loadChildren: () => import('./pages/registration/registration.module').then(m => m.RegistrationModule)
+  },
+  {
     path: 'access-denied',
     loadChildren: () => import('./pages/access-denied/access-denied.module').then(m => m.AccessDeniedModule)
   },

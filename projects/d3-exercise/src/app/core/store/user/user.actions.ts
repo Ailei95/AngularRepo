@@ -1,8 +1,9 @@
 import {createAction, props} from '@ngrx/store';
 import {User} from '../../../model/user.model';
+import {Login} from '../../../model/login.model';
 
 export const login = createAction('[User] Login',
-  props<{ payload: { email: string, password: string, 'remember-me': boolean } }>());
+  props<{ payload: Login }>());
 
 export const loginSuccess = createAction('[User] Login Success');
 

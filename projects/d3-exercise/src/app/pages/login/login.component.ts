@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
-import {UserState} from '../../core/store/user/user.reducer';
 import {login} from '../../core/store/user/user.actions';
 import {LoadingService} from '../../core/interceptor/loading.service';
 import {Observable} from 'rxjs';
@@ -21,7 +20,7 @@ export class LoginComponent implements OnInit {
     private loadingService: LoadingService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private store: Store<{ user: UserState }>
+    private store: Store
   ) {
     this.loading$ = this.loadingService.getLoading$();
 

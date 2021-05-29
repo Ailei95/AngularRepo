@@ -3,4 +3,5 @@ export interface Country {
   name: string;
   isoCode: string;
   imageUrl: string;
+  file: string;
 }

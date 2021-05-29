@@ -9,25 +9,27 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {userReducer} from './core/store/user/user.reducer';
 import {UserEffects} from './core/store/user/user.effetcs';
-import {LoadingComponent} from './features/loading/loading.component';
 import {InterceptorService} from './core/interceptor/interceptor.service';
 import {getUserDetails} from './core/store/user/user.actions';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {LoadingService} from './core/interceptor/loading.service';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
+import {LoadingModule} from './features/loading/loading.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoadingComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+
+    LoadingModule,
+
     StoreModule.forRoot({userState: userReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 20
